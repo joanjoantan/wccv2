@@ -1,37 +1,39 @@
 import React, { useState } from "react";
+import {
+  messageInvalid,
+  messageTooHigh,
+  messageTooLow,
+  messageCongratulations,
+  minNum,
+  maxNum,
+} from "../utils/Helpers";
 
+// Function to generate a random number within a given range
 const generateRandomNumber = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const messageTooHigh = "Too high! Try a lower number.";
-const messageTooLow = "Too low! Try a higher number.";
-const messageInvalid = "Please enter a valid number.";
-const messageCongratulations = "Congratulations! You guessed the";
-
 const ModeTwo: React.FC = () => {
-  const minNumber = 1;
-  const maxNumber = 10000;
+  const minNumber = minNum;
+  const maxNumber = maxNum;
 
-  // State specific to Mode 1
-  const [userGuess, setUserGuess] = useState("");
-  const [userThink, setUserThink] = useState("");
-
-  // State specific to Mode 2
-  const [Mode2, setMode2] = useState(false);
+  // Initialize state variables
+  // eslint-disable-next-line
   const [computerMysteryNumber, setComputerMysteryNumber] = useState(
     generateRandomNumber(minNumber, maxNumber)
   );
   const [yourGuess, setYourGuess] = useState("");
   const [messageModeTwo, setMessageModeTwo] = useState("");
 
-  // Mode 2: Define a state variable to track the visibility of the computerMysteryNumber
+  // State variable to toggle text visibility
   const [isTextVisible, setIsTextVisible] = useState(false);
 
+  // Function to handle the submission of a guess
   const handleSubmitGuess = () => {
     handleModeTwoGuess();
   };
 
+  // Function to compare the user's guess with the computer's mystery number
   const compareValue = (
     guess: string,
     think: string,
@@ -45,7 +47,6 @@ const ModeTwo: React.FC = () => {
       setMessageFn(messageInvalid);
     } else if (guessValue === thinkValue) {
       setMessageFn(`${messageCongratulations} ${specialMessage} ${think}!`);
-      setMode2(true);
     } else if (guessValue < thinkValue) {
       setMessageFn(messageTooLow);
     } else {
@@ -53,6 +54,7 @@ const ModeTwo: React.FC = () => {
     }
   };
 
+  // Function to handle the user's guess
   const handleModeTwoGuess = () => {
     compareValue(
       yourGuess,
@@ -62,6 +64,7 @@ const ModeTwo: React.FC = () => {
     );
   };
 
+  // Function to handle changes in the user's guess input field
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     setStateFn: React.Dispatch<React.SetStateAction<string>>,
@@ -78,18 +81,19 @@ const ModeTwo: React.FC = () => {
     }
   };
 
+  // Function to handle changes in the user's guess input field
   const handleModeTwoGuessChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(e, setYourGuess, setMessageModeTwo);
   };
 
-  // Create a function to toggle the visibility
+  // Function to toggle the visibility of the computer's mystery number
   const toggleTextVisibility = () => {
     setIsTextVisible(!isTextVisible);
   };
 
   return (
     <>
-      <h2>Mode 2</h2>
+      <p className="titleName">Mode 2</p>
       <p>
         The computer generates a random number (
         <i onClick={toggleTextVisibility}>toggle computer mystery number</i>
@@ -102,9 +106,9 @@ const ModeTwo: React.FC = () => {
         value={yourGuess}
         onChange={handleModeTwoGuessChange}
         placeholder="Enter your guess"
-      />
-      <h3>{messageModeTwo}</h3>
+      />{" "}
       <button onClick={handleSubmitGuess}>Submit Guess</button>
+      <h3 className="message">{messageModeTwo}</h3>
     </>
   );
 };

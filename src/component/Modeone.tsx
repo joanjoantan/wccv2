@@ -1,17 +1,22 @@
 import React, { useState } from "react";
+import { minNum, maxNum } from "../utils/Helpers";
+import Modetwo from "./Modetwo";
 
 const ModeOne: React.FC = () => {
+  // Function to calculate the midpoint of a range
   const calculateMidpoint = ({ min, max }: { min: number; max: number }) => {
     return Math.floor((min + max) / 2);
   };
 
-  const [range, setRange] = useState({ min: 1, max: 10000 });
-
+  // Initialize state variables
+  const [range, setRange] = useState({ min: minNum, max: maxNum });
   const [computerGuess, setComputerGuess] = useState(calculateMidpoint(range));
   const [message, setMessage] = useState(
     "Think of a number between 1 and 10,000"
   );
+  const [Mode2, setMode2] = useState(false);
 
+  // Function to handle user responses
   const handleUserResponse = (response: string) => {
     const newRange = updateRange(response, range, computerGuess);
     setRange(newRange);
@@ -19,6 +24,7 @@ const ModeOne: React.FC = () => {
     updateMessage(response);
   };
 
+  // Function to update the range based on user responses
   const updateRange = (
     response: string,
     { min, max }: { min: number; max: number },
@@ -32,30 +38,51 @@ const ModeOne: React.FC = () => {
     return { min, max };
   };
 
+  // Function to update the message based on user responses
   const updateMessage = (response: string) => {
     if (response === "3") {
       setMessage(`Great! I guessed your number, which is ${computerGuess}.`);
+      setMode2(true);
     }
   };
 
+  // Function to handle game restart
   const handleStart = () => {
     setRange({ min: 1, max: 10000 });
     setComputerGuess(calculateMidpoint({ min: 1, max: 10000 }));
     setMessage("Think of a number between 1 and 10,000");
+
+    if (Mode2) {
+      setMode2(false);
+    }
   };
 
-  const renderGuessButtons = () => {
+  // Function to render the Mode One UI elements
+  const renderModeOne = () => {
     if (
       message !== `Great! I guessed your number, which is ${computerGuess}.`
     ) {
       return (
-        <div>
+        <>
           <p>Is your number {computerGuess}?</p>
           <button onClick={handleStart}>Restart</button>
           <button onClick={() => handleUserResponse("1")}>Too low</button>
           <button onClick={() => handleUserResponse("2")}>Too high</button>
           <button onClick={() => handleUserResponse("3")}>Correct</button>
-        </div>
+        </>
+      );
+    }
+  };
+
+  // Function to render the Mode Two UI elements
+  const renderModeTwo = () => {
+    if (Mode2) {
+      return (
+        <>
+          <hr />
+          <Modetwo />
+          <button onClick={handleStart}>Restart games</button>
+        </>
       );
     }
   };
@@ -63,7 +90,9 @@ const ModeOne: React.FC = () => {
   return (
     <div>
       <p>{message}</p>
-      {renderGuessButtons()}
+      {renderModeOne()}
+
+      {renderModeTwo()}
     </div>
   );
 };

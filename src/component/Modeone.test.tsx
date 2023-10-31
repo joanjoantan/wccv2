@@ -1,59 +1,68 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ModeOne from "./Modeone";
 
-describe("NumberGuessGame", () => {
-  it("renders the initial message", () => {
+describe("ModeOne Component", () => {
+  test("renders the component with initial message and buttons", () => {
     render(<ModeOne />);
-    const messageElement = screen.getByText(
-      "Think of a number between 1 and 10,000."
+
+    const initialMessage = screen.getByText(
+      "Think of a number between 1 and 10,000"
     );
-    expect(messageElement).toBeInTheDocument();
-  });
+    expect(initialMessage).toBeInTheDocument();
 
-  it("renders the guess buttons when not yet guessed correctly", () => {
-    render(<ModeOne />);
+    const restartButton = screen.getByText("Restart");
+    expect(restartButton).toBeInTheDocument();
+
     const tooLowButton = screen.getByText("Too low");
-    const tooHighButton = screen.getByText("Too high");
-    const correctButton = screen.getByText("Correct");
-
     expect(tooLowButton).toBeInTheDocument();
+
+    const tooHighButton = screen.getByText("Too high");
     expect(tooHighButton).toBeInTheDocument();
+
+    const correctButton = screen.getByText("Correct");
     expect(correctButton).toBeInTheDocument();
   });
 
-  it("updates the message and re-renders guess buttons when 'Correct' is clicked", () => {
-    const { container } = render(<ModeOne />);
-    const correctButton = screen.getByText("Correct");
+  test("restarts the game when restart button is clicked", () => {
+    render(<ModeOne />);
 
-    fireEvent.click(correctButton);
+    const restartButton = screen.getByText("Restart");
+    fireEvent.click(restartButton);
 
-    const messageElement = screen.getByText(
-      /Great! I guessed your number, which is \d+\./
+    const restartMessage = screen.getByText(
+      "Think of a number between 1 and 10,000"
     );
-    const guessButtons = container.querySelectorAll("button");
-
-    expect(messageElement).toBeInTheDocument();
-    expect(guessButtons).toHaveLength(0);
+    expect(restartMessage).toBeInTheDocument();
   });
 
-  it("updates the message and re-renders guess buttons when 'Too low' or 'Too high' is clicked", () => {
-    const { container } = render(<ModeOne />);
-    const tooLowButton = screen.getByText("Too low");
-    const tooHighButton = screen.getByText("Too high");
+  test("updates the message and mode when the correct button is clicked", () => {
+    render(<ModeOne />);
 
+    const correctButton = screen.getByText("Correct");
+    fireEvent.click(correctButton);
+
+    const messageElement = screen.getByText(/Great! I guessed your number/);
+    expect(messageElement).toBeInTheDocument();
+
+    const restartButton = screen.getByText("Restart games");
+    expect(restartButton).toBeInTheDocument();
+  });
+
+  test("updates the range and message when too low button is clicked", () => {
+    render(<ModeOne />);
+    const tooLowButton = screen.getByText("Too low");
     fireEvent.click(tooLowButton);
 
-    let messageElement = screen.queryByText(
-      "Think of a number between 1 and 10,000."
-    );
-    expect(messageElement).toBeInTheDocument();
+    const newMessage = screen.getByText(/Is your number/);
+    expect(newMessage).toBeInTheDocument();
+  });
 
+  test("updates the range and message when too high button is clicked", () => {
+    render(<ModeOne />);
+    const tooHighButton = screen.getByText("Too high");
     fireEvent.click(tooHighButton);
 
-    messageElement = screen.queryByText(
-      "Think of a number between 1 and 10,000."
-    );
-    expect(messageElement).toBeInTheDocument();
+    const newMessage = screen.getByText(/Is your number/);
+    expect(newMessage).toBeInTheDocument();
   });
 });
