@@ -1,10 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import NumberGuessGame from "./Modeone";
+import ModeOne from "./Modeone";
 
 describe("NumberGuessGame", () => {
   it("renders the initial message", () => {
-    render(<NumberGuessGame />);
+    render(<ModeOne />);
     const messageElement = screen.getByText(
       "Think of a number between 1 and 10,000."
     );
@@ -12,7 +12,7 @@ describe("NumberGuessGame", () => {
   });
 
   it("renders the guess buttons when not yet guessed correctly", () => {
-    render(<NumberGuessGame />);
+    render(<ModeOne />);
     const tooLowButton = screen.getByText("Too low");
     const tooHighButton = screen.getByText("Too high");
     const correctButton = screen.getByText("Correct");
@@ -23,7 +23,7 @@ describe("NumberGuessGame", () => {
   });
 
   it("updates the message and re-renders guess buttons when 'Correct' is clicked", () => {
-    const { container } = render(<NumberGuessGame />);
+    const { container } = render(<ModeOne />);
     const correctButton = screen.getByText("Correct");
 
     fireEvent.click(correctButton);
@@ -38,7 +38,7 @@ describe("NumberGuessGame", () => {
   });
 
   it("updates the message and re-renders guess buttons when 'Too low' or 'Too high' is clicked", () => {
-    const { container } = render(<NumberGuessGame />);
+    const { container } = render(<ModeOne />);
     const tooLowButton = screen.getByText("Too low");
     const tooHighButton = screen.getByText("Too high");
 
