@@ -23,16 +23,52 @@ To run the project locally, follow these steps:
 
 Have fun playing the Number Guessing Game!
 
-## Project Structure
+### Technologies Used
 
-The project consists of the following components:
+The Number Guessing Game is built using the following technologies:
 
-- `App`: The main application component that renders the game.
-- `NumberGuessGame`: The game logic component that handles guessing and user interactions.
+- React: A JavaScript library for building user interfaces.
+- TypeScript: A statically typed superset of JavaScript.
 
-## Testing
+### Prerequisites
 
-The project includes unit tests for the components using `@testing-library/react`. You can run the tests using the following command:
+- Node.js and npm (Node Package Manager) must be installed on your machine. You can download them from [nodejs.org](https://nodejs.org/).
+
+### Installation
+
+1. Clone this repository to your local machine:
+
+   ```bash
+   git clone <https://github.com/joanjoantan/wcc.git>
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd wcc
+
+   ```
+
+3. Install the project dependencies:
+
+   ```bash
+   yarn install
+
+   ```
+
+### Usage
+
+Start the development server:
+
+```bash
+yarn start
+```
+
+Open your web browser and go to http://localhost:3000 to play the game.
+
+### Running Tests
+
+To run tests for the app, use the following command:
 
 ```bash
 yarn test
