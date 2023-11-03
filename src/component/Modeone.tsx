@@ -46,8 +46,8 @@ const ModeOne: React.FC = () => {
 
   // Function to handle game restart
   const handleStart = () => {
-    setRange({ min: 1, max: 10000 });
-    setComputerGuess(calculateMidpoint({ min: 1, max: 10000 }));
+    setRange({ min: minNum, max: maxNum });
+    setComputerGuess(calculateMidpoint({ min: minNum, max: maxNum }));
     setMessage(messageThinkNumber);
 
     if (Mode2) {
