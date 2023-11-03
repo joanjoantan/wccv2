@@ -8,19 +8,13 @@ import {
   maxNum,
 } from "../utils/Helpers";
 
-// Function to generate a random number within a given range
-const generateRandomNumber = (min: number, max: number): number => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 const ModeTwo: React.FC = () => {
-  const minNumber = minNum;
-  const maxNumber = maxNum;
+  const min = minNum;
+  const max = maxNum;
 
   // Initialize state variables
-  // eslint-disable-next-line
-  const [computerMysteryNumber, setComputerMysteryNumber] = useState(
-    generateRandomNumber(minNumber, maxNumber)
+  const [computerMysteryNumber] = useState(
+    Math.floor(Math.random() * (max - min + 1)) + min
   );
   const [yourGuess, setYourGuess] = useState("");
   const [messageModeTwo, setMessageModeTwo] = useState("");
@@ -30,38 +24,33 @@ const ModeTwo: React.FC = () => {
 
   // Function to handle the submission of a guess
   const handleSubmitGuess = () => {
-    handleModeTwoGuess();
-  };
-
-  // Function to compare the user's guess with the computer's mystery number
-  const compareValue = (
-    guess: string,
-    think: string,
-    specialMessage: string,
-    setMessageFn: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    const guessValue = parseInt(guess, 10);
-    const thinkValue = parseInt(think, 10);
-
-    if (isNaN(guessValue)) {
-      setMessageFn(messageInvalid);
-    } else if (guessValue === thinkValue) {
-      setMessageFn(`${messageCongratulations} ${specialMessage} ${think}!`);
-    } else if (guessValue < thinkValue) {
-      setMessageFn(messageTooLow);
-    } else {
-      setMessageFn(messageTooHigh);
-    }
-  };
-
-  // Function to handle the user's guess
-  const handleModeTwoGuess = () => {
     compareValue(
       yourGuess,
       computerMysteryNumber.toString(),
       "computer random number",
       setMessageModeTwo
     );
+  };
+
+  // Function to compare the user's guess with the computer's mystery number
+  const compareValue = (
+    guess: string,
+    generated: string,
+    specialMessage: string,
+    setMessageFn: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    const guessValue = parseInt(guess, 10);
+    const generatedValue = parseInt(generated, 10);
+
+    if (isNaN(guessValue)) {
+      setMessageFn(messageInvalid);
+    } else if (guessValue === generatedValue) {
+      setMessageFn(`${messageCongratulations} ${specialMessage} ${generated}!`);
+    } else if (guessValue < generatedValue) {
+      setMessageFn(messageTooLow);
+    } else {
+      setMessageFn(messageTooHigh);
+    }
   };
 
   // Function to handle changes in the user's guess input field
@@ -74,7 +63,7 @@ const ModeTwo: React.FC = () => {
 
     const value = parseInt(e.target.value, 10);
 
-    if (!isNaN(value) && value >= minNumber && value <= maxNumber) {
+    if (!isNaN(value) && value >= min && value <= max) {
       setStateFn(value.toString());
     } else {
       setStateFn("");
@@ -98,7 +87,7 @@ const ModeTwo: React.FC = () => {
         The computer generates a random number (
         <i onClick={toggleTextVisibility}>toggle computer mystery number</i>
         {isTextVisible && <b> - {computerMysteryNumber}</b>}), you guess a
-        number between {minNumber} and {maxNumber}:
+        number between {min} and {max}:
       </p>
       You guess a number:{" "}
       <input

@@ -1,14 +1,6 @@
 # Number Guessing Game
 
-Welcome to the Number Guessing Game! This is a simple React application where the computer tries to guess a number you're thinking of within a specified range.
-
-## Getting Started
-
-To run the project locally, follow these steps:
-
-1. Clone the repository to your local machine:
-
-2. Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to play the game.
+This is a simple Number Guessing Game implemented in React. The game has two modes: Mode 1 where the user thinks of a number, and Mode 2 where the computer generates a random number for the user to guess.
 
 ## How to Play
 
@@ -22,6 +14,13 @@ To run the project locally, follow these steps:
 3. The game continues until the computer correctly guesses your number.
 
 Have fun playing the Number Guessing Game!
+
+## Features
+
+- Two game modes: user thinks of a number and computer-generated mystery number.
+- Real-time feedback on the guess (too high, too low, correct).
+- Messages to inform the player of the game's status.
+- Easy-to-use input fields to enter guesses and thought numbers.
 
 ### Technologies Used
 
@@ -87,8 +86,16 @@ I am made the following assumptions during the development of this game:
 
 Given more time, here are some potential improvements that could be made to the app:
 
-1. User Interface Enhancements: Improve the user interface by adding animations, better styling, or additional user feedback features.
+1. User Experience Enhancements:
 
-2. Difficulty Levels: Implement different difficulty levels with varying number ranges and computer guessing strategies.
+- Improve the overall user interface, including styling and animations to make the game more visually appealing.
+- Add sound effects or background music to enhance the gaming experience.
+- Provide more user-friendly instructions and tooltips for better guidance.
 
-3. Multiplayer Mode: Add a multiplayer mode where two players can take turns guessing numbers.
+2. Mobile Responsiveness:
+
+- Ensure that the game is responsive and works well on mobile devices, expanding its accessibility.
+
+3. Advanced Computer Player:
+
+- In Mode 2, enhance the computer-generated number by implementing various algorithms to make it smarter and more challenging for the player.

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { minNum, maxNum } from "../utils/Helpers";
+import { minNum, maxNum, messageThinkNumber } from "../utils/Helpers";
 import Modetwo from "./Modetwo";
 
 const ModeOne: React.FC = () => {
@@ -11,9 +11,7 @@ const ModeOne: React.FC = () => {
   // Initialize state variables
   const [range, setRange] = useState({ min: minNum, max: maxNum });
   const [computerGuess, setComputerGuess] = useState(calculateMidpoint(range));
-  const [message, setMessage] = useState(
-    "Think of a number between 1 and 10,000"
-  );
+  const [message, setMessage] = useState(messageThinkNumber);
   const [Mode2, setMode2] = useState(false);
 
   // Function to handle user responses
@@ -50,7 +48,7 @@ const ModeOne: React.FC = () => {
   const handleStart = () => {
     setRange({ min: 1, max: 10000 });
     setComputerGuess(calculateMidpoint({ min: 1, max: 10000 }));
-    setMessage("Think of a number between 1 and 10,000");
+    setMessage(messageThinkNumber);
 
     if (Mode2) {
       setMode2(false);
